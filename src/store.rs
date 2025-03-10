@@ -137,6 +137,9 @@ pub fn play<H: MakeMove>(
                 None => (),
             }
 
+            if winner == true {
+                break;
+            }
             let f: usize;
             loop {
                 let mut s = String::new();
@@ -220,7 +223,7 @@ fn check3(first: Square, second: Square, third: Square) -> Option<Player> {
     }
 }
 
-fn who_won(board: &Board) -> Option<Player> {
+pub fn who_won(board: &Board) -> Option<Player> {
     let mut holder: Vec<Option<Player>> = vec![];
 
     holder.push(check3(board.pieces[0], board.pieces[1], board.pieces[2]));
@@ -342,15 +345,15 @@ impl Board {
 
         for square in &self.pieces {
             match square.spot {
-                1 => new_board.pieces[3] = self.pieces[1],
-                2 => new_board.pieces[6] = self.pieces[2],
-                3 => new_board.pieces[9] = self.pieces[3],
-                4 => new_board.pieces[2] = self.pieces[4],
-                5 => new_board.pieces[5] = self.pieces[5],
-                6 => new_board.pieces[8] = self.pieces[6],
-                7 => new_board.pieces[1] = self.pieces[7],
-                8 => new_board.pieces[4] = self.pieces[8],
-                9 => new_board.pieces[7] = self.pieces[9],
+                1 => new_board.pieces[2] = self.pieces[0],
+                2 => new_board.pieces[5] = self.pieces[1],
+                3 => new_board.pieces[8] = self.pieces[2],
+                4 => new_board.pieces[1] = self.pieces[3],
+                5 => new_board.pieces[4] = self.pieces[4],
+                6 => new_board.pieces[7] = self.pieces[5],
+                7 => new_board.pieces[0] = self.pieces[6],
+                8 => new_board.pieces[3] = self.pieces[7],
+                9 => new_board.pieces[6] = self.pieces[8],
                 _ => println!("what the fuck happened we have impossible indexes?"),
             }
         }

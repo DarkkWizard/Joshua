@@ -18,16 +18,16 @@ impl Default for RandomMoves {
 #[allow(unreachable_code)]
 impl MakeMove for RandomMoves {
     fn moves(board: &Board) -> usize {
-        let mut rng = rand::rng();
-        let mut num = rng.random_range(1..10);
-
         loop {
-            if board.pieces[num - 1].player == None {
-                return num;
-            } else {
-                num = rng.random_range(1..10);
+            let mut rng = rand::rng();
+            let num = rng.random_range(1..=9);
+
+            match board.pieces[num - 1].player {
+                Some(_) => continue,
+                None => {
+                    break num;
+                }
             }
         }
-        unreachable!("never chose a square")
     }
 }
